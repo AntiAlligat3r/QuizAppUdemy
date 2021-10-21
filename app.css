@@ -95,11 +95,20 @@ h3{
     transform: translateY(-0.2rem);
     transition: transform 150ms;
 }
-
-.btn[disabled]:hover{
+.btn[disabled]{
     cursor:not-allowed;
     box-shadow:none;
     transform: none;
+    background-color: #d8d8d8;
+    border: 0.1rem solid #d8d8d8;
+    color:white;
+}
+.btn[disabled]:hover{
+    color:rgba(0, 0, 0, 0);
+    background-color:rgba(0, 0, 0, 0);
+    border: 0.1rem solid rgba(0, 0, 0, 0);
+    transition-property: color,background-color,border;
+    transition-duration: 0.5;
 }
 
 /*FORMS*/
@@ -120,6 +129,10 @@ input {
     box-shadow: 0 0.1rem 1.4rem 0 rgba(86, 185, 235, 0.5);
 }
 
+input:disabled{
+    box-shadow: none;
+    color: rgba(66, 66, 66, 0.308);
+}
 input::placeholder{
     color: #aaa;
 }

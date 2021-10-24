@@ -13,4 +13,5 @@
 
 .high-score:hover{
     transform: scale(1.025);
+    color: #56a5eb;
 }

@@ -3,6 +3,8 @@ const choices = Array.from(document.getElementsByClassName("choice-text"));
 const questionCounterText = document.getElementById('questionCounter');
 const scoreText = document.getElementById('score');
 const progressBarFull = document.getElementById("progressBar-full");
+const loader = document.getElementById("loader");
+const game = document.getElementById("game");
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -16,25 +18,27 @@ fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=mul
     .then(res =>{
         return res.json();
     }).then(loadedQuestions =>{
-        loadedQuestions.results.map( loadedQuestions =>{
+        questions = loadedQuestions.results.map( loadedQuestions =>{
             const formattedQuestion = {
                 question: loadedQuestions.question
             };
 
-            const answerChoice = {...loadedQuestions.incorrect_answers};
+            const answerChoices = [...loadedQuestions.incorrect_answers];
             formattedQuestion.answer = Math.floor(Math.random()*3)+1;
-            answerChoice.splice(formattedQuestion.answer -1,0,loadedQuestion.correct_answer);
+            answerChoices.splice(formattedQuestion.answer -1,0,loadedQuestions.correct_answer);
 
             answerChoices.forEach((choice,index) =>{
                 formattedQuestion["choice"+(index+1)] = choice;
-            })
+            });
+
             return formattedQuestion;
-        })
+        });
         startGame();
+
     }).catch(err =>{
         console.error(err);
     });
-    
+
 /*fetch("questions.json").then(res =>{
     return res.json();
 }).then(loadedQuestions =>{
@@ -53,6 +57,8 @@ startGame = () => {
     score = 0;
     availableQuestions = [...questions];
     getNewQuestion();
+    game.classList.remove("hidden");
+    loader.classList.add("hidden");
 };
 
 getNewQuestion = () =>{
